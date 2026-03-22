@@ -1,54 +1,22 @@
 module.exports = {
   root: true,
-  parser: "@typescript-eslint/parser",
-  env: {
-    node: true,
-    es6: true,
-    jest: true
-  },
+  parser: '@typescript-eslint/parser',
   extends: [
-    "plugin:react/recommended",
-    "airbnb",
-    "plugin:@typescript-eslint/recommended"
+    '@react-native',
+    'plugin:@typescript-eslint/recommended',
   ],
-  plugins: [
-    "react",
-    "babel",
-    "@typescript-eslint"
-  ],
-  parserOptions: {
-    sourceType: "module",
-    requireConfigFile: false,
-    ecmaFeatures: {
-      jsx: true
-    }
-},
-  settings: {
-    react: {
-      pragma: "React",
-      version: "detect"
-    }
-  },
+  plugins: ['@typescript-eslint'],
   rules: {
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
-    "no-use-before-define": ["error", { "variables": false }],
-    "arrow-body-style": ["off"],
-    "function-paren-newline": ["off"],
-    "object-curly-newline": ["off"],
-    "no-void": ["off"],
-    "consistent-return": ["off"],
-    "react/destructuring-assignment": ["off"],
-    "import/no-unresolved": ["off"],
-    "import/extensions": ["off"],
-    "react/no-array-index-key": ["off"],
-    "import/prefer-default-export": ["off"],
-    "operator-linebreak": ["off"],
-    "react/jsx-curly-newline": ["off"],
-    "react/jsx-props-no-spreading": ["off"],
-    "global-require": ["off"],
-    "no-unused-expressions": ["off"],
-    "react/prop-types": 1,
-    "react/jsx-wrap-multilines": ["off"],
-    "react/jsx-one-expression-per-line": ["off"]
-  }
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+    'no-use-before-define': ['error', { variables: false }],
+    'arrow-body-style': ['off'],
+    'consistent-return': ['off'],
+    'react/destructuring-assignment': ['off'],
+    'import/no-unresolved': ['off'],
+    'import/extensions': ['off'],
+    'react/no-array-index-key': ['off'],
+    'import/prefer-default-export': ['off'],
+    'global-require': ['off'],
+    'react/prop-types': 1,
+  },
 };
