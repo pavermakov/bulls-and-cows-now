@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  parser: "babel-eslint",
+  parser: "@typescript-eslint/parser",
   env: {
     node: true,
     es6: true,
@@ -8,15 +8,17 @@ module.exports = {
   },
   extends: [
     "plugin:react/recommended",
-    "airbnb"
+    "airbnb",
+    "plugin:@typescript-eslint/recommended"
   ],
   plugins: [
     "react",
-    "babel"
+    "babel",
+    "@typescript-eslint"
   ],
   parserOptions: {
     sourceType: "module",
-    requireConfigFile: true,
+    requireConfigFile: false,
     ecmaFeatures: {
       jsx: true
     }
@@ -28,7 +30,7 @@ module.exports = {
     }
   },
   rules: {
-    "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "no-use-before-define": ["error", { "variables": false }],
     "arrow-body-style": ["off"],
     "function-paren-newline": ["off"],
