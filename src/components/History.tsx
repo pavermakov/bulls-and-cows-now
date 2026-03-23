@@ -1,16 +1,22 @@
 import React, { useRef } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
-import HistoryItem from '~/components/HistoryItem';
+import HistoryItem, { HistoryItemProps } from '~/components/HistoryItem';
 
-const keyExtractor = (item, index) => {
+type HistoryProps = {
+  items: Array<HistoryItemProps>;
+};
+
+type HistoryListRef = FlatList<HistoryItemProps> | null;
+
+const keyExtractor = (_: HistoryItemProps, index: number): string => {
   return String(index);
 };
 
-const History = ({ items }) => {
-  const $list = useRef();
+const History = ({ items }: HistoryProps) => {
+  const $list = useRef<HistoryListRef>(null);
 
   const scrollToBottom = () => {
-    $list.current.scrollToEnd?.({ animated: true });
+    $list.current?.scrollToEnd({ animated: true });
   };
 
   return (

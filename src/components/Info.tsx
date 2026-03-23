@@ -5,7 +5,11 @@ import Tooltip from '~/components/Tooltip';
 import Farmer from '~/components/Farmer';
 import CloseButton from '~/components/CloseButton';
 
-const Info = ({ onClose }) => {
+type InfoProps = {
+  onClose: () => void;
+};
+
+const Info = ({ onClose }: InfoProps) => {
   return (
     <Overlay>
       <View style={s.wrapper}>

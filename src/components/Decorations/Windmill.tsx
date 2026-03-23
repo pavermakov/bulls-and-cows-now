@@ -3,7 +3,11 @@ import { View, Animated, Image, StyleSheet } from 'react-native';
 import useRotation from '~/hooks/useRotation';
 import files from '~/constants/files';
 
-const Windmill = ({ style }) => {
+type WindmillProps = {
+  style?: object;
+};
+
+const Windmill = ({ style }: WindmillProps) => {
   const rotate = useRotation({ duration: 3000 });
   const wingsStyles = [s.wings, { transform: [{ rotate }] }];
 

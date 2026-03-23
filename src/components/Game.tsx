@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { View, StyleSheet, Vibration } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { View, Text, StyleSheet, Vibration } from 'react-native';
 
 import Screen from '~/components/Screen';
 import Keypad from '~/components/Keypad';
@@ -210,6 +210,8 @@ const App = () => {
     });
   };
 
+  const [isDebugVisible, setIsDebugVisible] = useState(false);
+
   const showInfo = () => setState({ isInfoVisible: true });
   const hideInfo = () => setState({ isInfoVisible: false });
 
@@ -217,6 +219,11 @@ const App = () => {
     <Screen>
       <View style={s.zone}>
         <History items={history} />
+        {isDebugVisible && (
+          <View style={s.debug}>
+            <Text style={s.debugText}>{guessedValues.current.join('')}</Text>
+          </View>
+        )}
       </View>
 
       <Input>
@@ -242,6 +249,11 @@ const App = () => {
         <SupportButton
           title="?"
           onPress={showInfo}
+        />
+
+        <SupportButton
+          title="D"
+          onPress={() => setIsDebugVisible((v) => !v)}
         />
       </View>
 
@@ -278,6 +290,19 @@ const s = StyleSheet.create({
   controls: {
     position: 'absolute',
     bottom: 20,
+  },
+  debug: {
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    padding: 8,
+    borderRadius: 6,
+    alignSelf: 'flex-end',
+    marginTop: 8,
+  },
+  debugText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    letterSpacing: 4,
   },
 });
 

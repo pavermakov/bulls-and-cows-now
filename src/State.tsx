@@ -1,12 +1,25 @@
-import React, { createContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { createContext, useEffect, ReactNode } from 'react';
 import useSetState from '~/hooks/useSetState';
 import useInitialRender from '~/hooks/useInitialRender';
 import { saveStateToStorage } from '~/storage';
 
-export const Context = createContext();
+type ContextType = {
+  isAnimationOn: boolean;
+  toggleAnimation: () => void;
+  refreshState: (nextState?: object) => void;
+};
 
-const State = ({ children }) => {
+export const Context = createContext<ContextType>({
+  isAnimationOn: true,
+  toggleAnimation: () => {},
+  refreshState: () => {}
+});
+
+type StateType = {
+  children: ReactNode;
+};
+
+const State = ({ children }: StateType) => {
   const [state, setState] = useSetState({ isAnimationOn: true });
   const isInitialRender = useInitialRender();
 
@@ -36,9 +49,5 @@ const State = ({ children }) => {
     </Context.Provider>
   );
 };
-
-State.propTypes = {
-  children: PropTypes.node.isRequired,
-}
 
 export default State;

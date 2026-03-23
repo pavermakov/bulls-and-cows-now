@@ -2,7 +2,11 @@ import React from 'react';
 import { Image, Dimensions, StyleSheet } from 'react-native';
 import files from '~/constants/files';
 
-const Grass = ({ style }) => {
+type GrassProps = {
+  style?: object;
+};
+
+const Grass = ({ style }: GrassProps) => {
   return (
     <Image
       style={[s.root, style]}

@@ -1,16 +1,28 @@
 import React, { useRef, useEffect } from 'react';
-import { Animated, Easing, StyleSheet } from 'react-native';
-import PropTypes from 'prop-types';
+import { Animated, Easing, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import Key from '~/components/Key';
 import Lock from './Lock';
 
-const getElasticDirection = (value) => {
-  const direction = Math.random() > 0.5 ? -1 : 1;
+type Direction = 1 | -1;
+
+type DummyKeyProps = {
+  style?: StyleProp<ViewStyle>;
+  shiftBy: {
+    x: number;
+    y: number;
+  };
+  isLocked: boolean;
+  onToggleLock: () => void;
+  onAnimationComplete?: () => void;
+};
+
+const getElasticDirection = (value: number): number => {
+  const direction: Direction = Math.random() > 0.5 ? -1 : 1;
 
   return value * direction;
 };
 
-const DummyKey = (props) => {
+const DummyKey = (props: DummyKeyProps) => {
   const {
     style,
     shiftBy,
@@ -59,30 +71,6 @@ const DummyKey = (props) => {
   );
 };
 
-DummyKey.propTypes = {
-  style: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.array,
-    PropTypes.number,
-  ]),
-
-  shiftBy: PropTypes.exact({
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-  }),
-
-  isLocked: PropTypes.bool,
-  onAnimationComplete: PropTypes.func,
-  onToggleLock: PropTypes.func,
-};
-
-DummyKey.defaultProps = {
-  style: null,
-  shiftBy: { x: 0, y: 0 },
-  isLocked: false,
-  onAnimationComplete: Function.prototype,
-  onToggleLock: Function.prototype,
-};
 
 const s = StyleSheet.create({
   root: {

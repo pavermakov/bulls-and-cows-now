@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { View, StyleSheet } from 'react-native';
 
-const Overlay = ({ children }) => {
+type OverlayProps = {
+  children: ReactNode;
+};
+
+const Overlay = ({ children }: OverlayProps) => {
   return (
     <View style={s.root}>
       {children}

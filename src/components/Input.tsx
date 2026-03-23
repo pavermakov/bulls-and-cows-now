@@ -1,5 +1,9 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 import { View, StyleSheet } from 'react-native';
+
+type InputProps = {
+  children: ReactNode;
+};
 
 const InputCell = forwardRef((props, ref) => {
   return (
@@ -10,7 +14,7 @@ const InputCell = forwardRef((props, ref) => {
   );
 });
 
-const Input = ({ children }) => {
+const Input = ({ children }: InputProps) => {
   return (
     <View style={s.root}>
       {children}

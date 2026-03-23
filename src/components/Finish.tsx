@@ -1,22 +1,28 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import PropTypes from 'prop-types';
 
 import Overlay from '~/components/Overlay';
 import Tooltip from '~/components/Tooltip';
 import Farmer from '~/components/Farmer';
 import CloseButton from '~/components/CloseButton';
 
-const formatTime = (startTime, endTime) => {
-  const duration = endTime - startTime;
-  const minutes = Math.floor(duration / 60000);
-  const seconds = ((duration % 60000) / 1000).toFixed(0);
+type FinishProps = {
+  value: string;
+  startTime: number;
+  endTime: number;
+  attempts: number;
+  onRestart: () => void;
+};
+
+const formatTime = (startTime: number, endTime: number): string => {
+  const duration: number = endTime - startTime;
+  const minutes: number = Math.floor(duration / 60000);
+  const seconds: number = Math.round((duration % 60000) / 1000);
 
   return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 };
 
-const Finish = ({ value, startTime, endTime, attempts, onRestart }) => {
-
+const Finish = ({ value, startTime, endTime, attempts, onRestart }: FinishProps) => {
   return (
     <Overlay>
       <View style={s.wrapper}>
@@ -49,14 +55,6 @@ const Finish = ({ value, startTime, endTime, attempts, onRestart }) => {
       </View>
     </Overlay>
   );
-};
-
-Finish.propTypes = {
-  value: PropTypes.string.isRequired,
-  attempts: PropTypes.number.isRequired,
-  startTime: PropTypes.number.isRequired,
-  endTime: PropTypes.number.isRequired,
-  onRestart: PropTypes.func.isRequired,
 };
 
 const s = StyleSheet.create({

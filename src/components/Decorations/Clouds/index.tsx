@@ -6,56 +6,61 @@ import files from '~/constants/files';
 import device from '~/constants/device';
 import { CLOUDS_COUNT } from '~/constants/config';
 
-const DIRECTIONS = {
-  TO_EAST: 'TO_EAST',
-  TO_WEST: 'TO_WEST',
+enum Direction {
+  toEast,
+  toWest
+}
+
+type Range = {
+  min: number;
+  max: number;
+}
+
+const Duration: Range = {
+  min: 40000,
+  max: 90000,
 };
 
-const DURATION = {
-  MIN: 40000,
-  MAX: 90000,
+const Delay: Range = {
+  min: 2000,
+  max: 4000,
 };
 
-const DELAY = {
-  MIN: 2000,
-  MAX: 4000,
+const Width: Range = {
+  min: 90,
+  max: 140,
 };
 
-const WIDTH = {
-  MIN: 90,
-  MAX: 140,
+const Top: Range = {
+  min: 0,
+  max: Math.round(device.height * 0.7),
 };
 
-const TOP = {
-  MIN: 0,
-  MAX: Math.round(device.height * 0.7),
-};
-
-const getStartingPoint = (direction, width) => {
+const getStartingPoint = (direction: Direction, width: number): number => {
   return ({
-    [DIRECTIONS.TO_EAST]: -width,
-    [DIRECTIONS.TO_WEST]: device.width + width,
+    [Direction.toEast]: -width,
+    [Direction.toWest]: device.width + width,
   })[direction];
 };
 
-const getShiftValue = (direction, width) => {
+const getShiftValue = (direction: Direction, width: number): number => {
   return ({
-    [DIRECTIONS.TO_EAST]: device.width + width,
-    [DIRECTIONS.TO_WEST]: -device.width - width * 2,
+    [Direction.toEast]: device.width + width,
+    [Direction.toWest]: -device.width - width * 2,
   })[direction];
 };
 
 const getCloudTemplate = () => {
-  const id = Math.random();
+  const id: number = Math.random();
   const source = getRandomItemFromList(files.clouds);
-  const duration = getRandomNumberFromRange({ min: DURATION.MIN, max: DURATION.MAX, isInt: true });
-  const delay = getRandomNumberFromRange({ min: DELAY.MIN, max: DELAY.MAX, isInt: true });
-  const width = getRandomNumberFromRange({ min: WIDTH.MIN, max: WIDTH.MAX, isInt: true });
+  const duration = getRandomNumberFromRange({ min: Duration.min, max: Duration.max, isInt: true });
+  const delay = getRandomNumberFromRange({ min: Delay.min, max: Delay.max, isInt: true });
+  const width = getRandomNumberFromRange({ min: Width.min, max: Width.max, isInt: true });
 
-  const direction = id > 0.5 ? DIRECTIONS.TO_WEST : DIRECTIONS.TO_EAST;
-  const left = getStartingPoint(direction, width);
-  const top = getRandomNumberFromRange({ min: TOP.MIN, max: TOP.MAX, isInt: true });
-  const shiftBy = getShiftValue(direction, width);
+  const direction: Direction = id > 0.5 ? Direction.toWest : Direction.toEast;
+  const left: number = getStartingPoint(direction, width);
+  const top: number = getRandomNumberFromRange({ min: Top.min, max: Top.max, isInt: true });
+  const shiftBy: number = getShiftValue(direction, width);
 
   return {
     id,
@@ -69,14 +74,14 @@ const getCloudTemplate = () => {
   };
 };
 
-const generateClouds = (count) => {
+const generateClouds = (count: number) => {
   return renderTimes(count, getCloudTemplate);
 };
 
 const Clouds = () => {
   const [clouds, setClouds] = useState(generateClouds(CLOUDS_COUNT));
 
-  const recreateCloud = (id) => {
+  const recreateCloud = (id: number) => {
     setClouds((prevClouds) => {
       return [
         ...prevClouds.filter((item) => item.id !== id),

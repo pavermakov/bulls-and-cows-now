@@ -6,11 +6,15 @@ import { renderTimes } from '~/utilities';
 import colors from '~/constants/colors';
 import { RAYS_COUNT } from '~/constants/config';
 
-const getAngle = (value) => {
-  return (360 / RAYS_COUNT) * value;
+type SunProps = {
+  style?: object;
 };
 
-const Sun = ({ style }) => {
+const getAngle = (index: number): number => {
+  return (360 / RAYS_COUNT) * index;
+};
+
+const Sun = ({ style }: SunProps) => {
   const rotate = useRotation({ duration: 70000, isClockWise: true });
   const rootStyles = [s.root, style, { transform: [{ rotate }] }];
 
@@ -19,7 +23,7 @@ const Sun = ({ style }) => {
       <View style={s.base} />
 
       <View style={s.rays}>
-        {renderTimes(RAYS_COUNT, (item, index) => (
+        {renderTimes(RAYS_COUNT, (_, index) => (
           <Ray
             key={index}
             isOdd={index % 2 !== 0}

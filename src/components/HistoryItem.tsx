@@ -2,7 +2,13 @@ import React, { useRef, useEffect } from 'react';
 import { View, Text, Animated, Image, StyleSheet } from 'react-native';
 import files from '~/constants/files';
 
-const HistoryItem = ({ value, bulls, cows }) => {
+export type HistoryItemProps = {
+  value: string;
+  bulls: number;
+  cows: number;
+};
+
+const HistoryItem = ({ value, bulls, cows }: HistoryItemProps) => {
   const opacity = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(20)).current;
 
