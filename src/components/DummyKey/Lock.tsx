@@ -1,8 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Animated, Easing, StyleSheet } from 'react-native';
 
-const Lock = ({ isHandleVisible }) => {
-  const translateY = useRef(new Animated.Value(0)).current;
+type LockProps = {
+  isHandleVisible: boolean;
+};
+
+const Lock = ({ isHandleVisible }: LockProps) => {
+  const translateY: Animated.Value = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.timing(translateY, {
@@ -27,7 +31,7 @@ const Lock = ({ isHandleVisible }) => {
 
 const s = StyleSheet.create({
   root: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     justifyContent: 'center',
     alignItems: 'center',
   },

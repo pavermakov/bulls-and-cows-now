@@ -1,8 +1,13 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import React, { ReactNode } from 'react';
+import { StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Decorations from '~/components/Decorations';
 
-const Screen = ({ children }) => {
+type ScreenProps = {
+  children: ReactNode;
+};
+
+const Screen = ({ children }: ScreenProps) => {
   return (
     <>
       <Decorations />

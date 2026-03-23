@@ -6,8 +6,13 @@ import useAnimationSettings from '~/hooks/useAnimationSettings';
 const MAX_SCALE = 1.7;
 const MIN_SCALE = 0.9;
 
-const Ray = ({ rotate, isOdd }) => {
-  const scaleX = useRef(new Animated.Value(isOdd ? MIN_SCALE : MAX_SCALE)).current;
+type RayProps = {
+  rotate: string;
+  isOdd: boolean;
+};
+
+const Ray = ({ rotate, isOdd }: RayProps) => {
+  const scaleX: Animated.Value = useRef(new Animated.Value(isOdd ? MIN_SCALE : MAX_SCALE)).current;
   const { isAnimationOn } = useAnimationSettings();
 
   const startAnimation = () => {
@@ -29,7 +34,7 @@ const Ray = ({ rotate, isOdd }) => {
     ).start();
   };
 
-  const toggleAnimation = () => {
+  const toggleAnimation = (): void => {
     if (!isAnimationOn) {
       return void scaleX.stopAnimation();
     }

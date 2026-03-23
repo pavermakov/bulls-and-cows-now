@@ -1,8 +1,13 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { ReactNode } from 'react';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import colors from '~/constants/colors';
 
-const Tooltip = ({ style, children }) => {
+type TooltipProps = {
+  style?: StyleProp<ViewStyle>;
+  children: ReactNode;
+};
+
+const Tooltip = ({ style, children }: TooltipProps) => {
   return (
     <View style={[s.root, style]}>
       <View style={s.arrow} />

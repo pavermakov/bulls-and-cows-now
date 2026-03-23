@@ -1,7 +1,7 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, RefObject } from 'react';
 
 const useInitialRender = () => {
-  const isInitialRender = useRef(true);
+  const isInitialRender: RefObject<boolean> = useRef(true);
 
   useEffect(() => {
     isInitialRender.current = false;

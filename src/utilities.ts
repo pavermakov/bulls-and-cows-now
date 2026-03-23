@@ -9,28 +9,28 @@ export const measure = (el) => {
 };
 
 export const delay = (timeout = 0) => {
-  return new Promise((resolve) => {
+  return new Promise<void>((resolve) => {
     setTimeout(resolve, timeout);
   });
 };
 
-export const times = (n, iterator) => {
-  const accum = Array(Math.max(0, n));
+export const times = (n: number, iterator): number[] => {
+  const accum: number[] = Array(Math.max(0, n));
 
-  for (let i = 0; i < n; i += 1) {
+  for (let i: number = 0; i < n; i += 1) {
     accum[i] = iterator.call();
   }
 
   return accum;
 };
 
-export const getEmptyUserInput = () => {
+export const getEmptyUserInput = (): string[] => {
   return [...Array(MAX_INPUT_VALUE)].map(() => '');
 };
 
 export const getSecretValue = (max = 4) => {
   let nums = [...Array(10).keys()];
-  const result = [];
+  const result: string[] = [];
 
   times(max, () => {
     const randomNum = nums[Math.floor(Math.random() * nums.length)];
@@ -42,9 +42,15 @@ export const getSecretValue = (max = 4) => {
   return result;
 };
 
-export const compareResults = (user = [], ai = []) => {
+type Turn = {
+  bulls: number;
+  cows: number;
+  isMatched: boolean;
+}
+
+export const compareResults = (user = [], ai = []): Turn => {
   if (user.join('') === ai.join('')) {
-    return { isMatched: true };
+    return { isMatched: true, bulls: user.length, cows: user.length };
   }
 
   let bulls = 0;
@@ -71,10 +77,10 @@ export const getRandomItemFromList = (list = []) => {
   return list[Math.floor(Math.random() * list.length)];
 };
 
-export const getRandomNumberFromRange = ({ min = 1, max = 10, isInt = false }) => {
-  return Number((Math.random() * (min - max) + max).toFixed(isInt ? 0 : 1));
+export const getRandomNumberFromRange = ({ min = 1, max = 10, isInt = false }): number => {
+  return Number((Math.random() * (max - min) + min).toFixed(isInt ? 0 : 1));
 };
 
-export const renderTimes = (n, render) => {
+export const renderTimes = (n: number, render) => {
   return [...Array(n)].map(render);
 };

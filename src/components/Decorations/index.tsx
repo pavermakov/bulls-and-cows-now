@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Windmill from '~/components/Decorations/Windmill';
 import Grass from '~/components/Decorations/Grass';
@@ -40,4 +40,4 @@ const s = StyleSheet.create({
   },
 });
 
-export default memo(Decorations);
+export default Decorations;

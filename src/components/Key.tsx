@@ -21,7 +21,7 @@ const Key = (props) => {
   const $el = useRef();
   const cachedPosition = useRef(null);
 
-  const onPressHandler = async () => {
+  const onPressHandler = async (): Promise<void> => {
     const position = await getPosition($el.current, cachedPosition.current);
     onPress({ value, ...position });
 

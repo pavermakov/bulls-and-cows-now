@@ -3,7 +3,18 @@ import { Animated, Easing, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import useAnimationSettings from '~/hooks/useAnimationSettings';
 
-const Cloud = (props) => {
+type CloudProps = {
+  source: number;
+  delay: number;
+  top: number;
+  left: number;
+  width: number;
+  duration: number;
+  shiftBy: number;
+  onAnimationComplete: () => void;
+};
+
+const Cloud = (props: CloudProps) => {
   const {
     source,
     delay,

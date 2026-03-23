@@ -1,14 +1,25 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import PropTypes from 'prop-types';
 import Key from '~/components/Key';
 import { MAX_INPUT_VALUE } from '~/constants/config';
 
 const DELETE_KEY = '«';
-const CLEAR_KEY = '×';
-const NUMS = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], [CLEAR_KEY, '0', DELETE_KEY]];
+const CLEAR_KEY = 'x';
+const NUMS: string[][] = [
+  ['1', '2', '3'],
+  ['4', '5', '6'],
+  ['7', '8', '9'],
+  [CLEAR_KEY, '0', DELETE_KEY]
+];
 
-const Keypad = ({ disabledKeys, onPress, onDelete, onClear }) => {
+type KeypadProps = {
+  disabledKeys?: string[];
+  onPress: (data: { value: string }) => void;
+  onDelete: () => void;
+  onClear: () => void;
+};
+
+const Keypad = ({ disabledKeys = [], onPress, onDelete, onClear }: KeypadProps) => {
   const handleKeyPress = (data) => {
     switch (data.value) {
       case DELETE_KEY:
@@ -24,7 +35,7 @@ const Keypad = ({ disabledKeys, onPress, onDelete, onClear }) => {
     }
   };
 
-  const isKeyDisabled = (key) => {
+  const isKeyDisabled = (key: string): boolean => {
     if ([DELETE_KEY, CLEAR_KEY].includes(key)) {
       return false;
     }
@@ -52,20 +63,6 @@ const Keypad = ({ disabledKeys, onPress, onDelete, onClear }) => {
       ))}
     </View>
   );
-};
-
-Keypad.propTypes = {
-  disabledKeys: PropTypes.arrayOf(PropTypes.string),
-  onPress: PropTypes.func,
-  onDelete: PropTypes.func,
-  onClear: PropTypes.func,
-};
-
-Keypad.defaultProps = {
-  disabledKeys: [],
-  onPress: Function.prototype,
-  onDelete: Function.prototype,
-  onClear: Function.prototype,
 };
 
 const s = StyleSheet.create({

@@ -1,12 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, ReactNode } from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import useGlobalState from '~/hooks/useGlobalState';
 import { getStateFromStorage } from '~/storage';
 
-const Preloader = ({ children }) => {
+type PreloaderProps = {
+  children: ReactNode;
+};
+
+const Preloader = ({ children }: PreloaderProps) => {
   const { refreshState } = useGlobalState();
 
-  const init = async () => {
+  const init = async (): Promise<void> => {
     const state = await getStateFromStorage();
 
     refreshState(state);
