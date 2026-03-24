@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, StyleSheet, Vibration } from 'react-native';
+import { View, Text, StyleSheet, Vibration, Platform } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Screen from '~/components/Screen';
 import Keypad from '~/components/Keypad';
@@ -53,6 +54,8 @@ const App = () => {
   const guessedValues = useRef(getSecretValue());
   const { toggleAnimation } = useAnimationSettings();
   const [state, setState] = useSetState(getInitialState());
+  const insets = useSafeAreaInsets();
+
   const {
     input,
     dummyKeys,
@@ -81,17 +84,17 @@ const App = () => {
     const nextInput = input.slice();
     nextInput[index] = key.value;
 
-    const destination = await measure(cells[`$cell${index + 1}`].current);
+    const destination = await measure(cells[`$cell${index + 1}`].current, insets);
 
     const newDummyKey = {
       value: key.value,
       shiftBy: {
         x: destination.x - key.x,
-        y: destination.y - key.y,
+        y: destination.y - key.y + (Platform.OS === 'android' ? insets.top : 0),
       },
       style: {
         position: 'absolute',
-        top: key.y - KEY_MARGIN,
+        top: key.y - KEY_MARGIN + (Platform.OS === 'android' ? insets.top : 0),
         left: key.x - KEY_MARGIN,
       },
       async onAnimationComplete() {
@@ -219,11 +222,14 @@ const App = () => {
     <Screen>
       <View style={s.zone}>
         <History items={history} />
-        {isDebugVisible && (
+
+        {isDebugVisible &&
           <View style={s.debug}>
-            <Text style={s.debugText}>{guessedValues.current.join('')}</Text>
+            <Text style={s.debugText}>
+              {guessedValues.current.join('')}
+            </Text>
           </View>
-        )}
+        }
       </View>
 
       <Input>

@@ -1,9 +1,14 @@
+import { Platform } from 'react-native';
 import { MAX_INPUT_VALUE } from '~/constants/config';
 
-export const measure = (el) => {
+type Insets = { top: number; left: number };
+
+export const measure = (el, insets: Insets = { top: 0, left: 0 }) => {
   return new Promise((resolve) => {
     el.measureInWindow((x, y, width, height) => {
-      resolve({ x, y, width, height });
+      const offsetX = Platform.OS === 'android' ? insets.left : 0;
+      const offsetY = Platform.OS === 'android' ? insets.top : 0;
+      resolve({ x: x - offsetX, y: y - offsetY, width, height });
     });
   });
 };

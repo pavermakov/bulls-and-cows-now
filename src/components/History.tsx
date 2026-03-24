@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet, Platform } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import HistoryItem, { HistoryItemProps } from '~/components/HistoryItem';
 
 type HistoryProps = {
@@ -14,13 +15,14 @@ const keyExtractor = (_: HistoryItemProps, index: number): string => {
 
 const History = ({ items }: HistoryProps) => {
   const $list = useRef<HistoryListRef>(null);
+  const insets = useSafeAreaInsets();
 
   const scrollToBottom = () => {
     $list.current?.scrollToEnd({ animated: true });
   };
 
   return (
-    <View style={s.root}>
+    <View style={[s.root, { paddingTop: Platform.OS === 'android' ? insets.top : 0 }]}>
       <View style={s.spacer} />
 
       <View>

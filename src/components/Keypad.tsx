@@ -4,7 +4,7 @@ import Key from '~/components/Key';
 import { MAX_INPUT_VALUE } from '~/constants/config';
 
 const DELETE_KEY = '«';
-const CLEAR_KEY = 'x';
+const CLEAR_KEY = '×';
 const NUMS: string[][] = [
   ['1', '2', '3'],
   ['4', '5', '6'],

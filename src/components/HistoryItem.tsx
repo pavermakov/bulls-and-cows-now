@@ -70,13 +70,14 @@ const s = StyleSheet.create({
   root: {
     paddingVertical: 5,
     flexDirection: 'row',
+    alignItems: 'center',
     borderBottomColor: 'rgba(0, 0, 0, 0.7)',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   text: {
     color: 'white',
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   textSpaced: {
     letterSpacing: 2,
