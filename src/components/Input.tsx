@@ -5,7 +5,7 @@ type InputProps = {
   children: ReactNode;
 };
 
-const InputCell = forwardRef((props, ref) => {
+const InputCell = forwardRef<View>((_, ref) => {
   return (
     <View
       style={s.cell}
